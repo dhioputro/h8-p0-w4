@@ -1,61 +1,78 @@
+function countProfit(shoppers) {
+  let listBarang = [ ['Sepatu Stacattu', 1500000, 10],
+                     ['Baju Zoro', 500000, 2],
+                     ['Sweater Uniklooh', 175000, 1]
+                   ];
+  var result = []
 
-function deepSum (arr) {
-  // Code disini
-  
-  var result = 0
-  for(let i = 0; i < arr.length; i++){
-      for(let j = 0; j < arr[i].length; j++){
-          for(let k = 0; k < arr[i][j].length; k++){
-              result += arr[i][j][k]
-          }
+  for (i = 0; i < listBarang.length; i++) {
+    buyer = []
+    profit = 0
+    stock = listBarang[i][2]
+
+    for (j = 0; j < shoppers.length; j++) {
+      if (shoppers[j].product == listBarang[i][0]) {
+        if (shoppers[j].amount <= stock) {
+
+          buyer.push(shoppers[j].name)
+          profit += (shoppers[j].amount * listBarang[i][1])
+          stock -= shoppers[j].amount
+        }
       }
+    }
+
+    result.push({
+      product: listBarang[i][0],
+      shoppers: buyer,
+      leftOver: stock,
+      totalProfit: profit})
   }
 
-  if(arr == 0){
-    return 'No number'
+  if (shoppers.length <= 0) {
+    return []
+  }
+
+  return result;
 }
 
-return result
-}
-
-//TEST CASE
-console.log(deepSum([
-[
-  [4, 5, 6],
-  [9, 1, 2, 10],
-  [9, 4, 3]
-],
-[
-  [4, 14, 31],
-  [9, 10, 18, 12, 20],
-  [1, 4, 90]
-],
-[
-  [2, 5, 10],
-  [3, 4, 5],
-  [2, 4, 5, 10]
-]
-])); // 316
-
-console.log(deepSum([
-[
-  [20, 10],
-  [15],
-  [1, 1]
-],
-[
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-  [2],
-  [9, 11]
-],
-[
-  [3, 5, 1],
-  [1, 5, 3],
-  [1]
-],
-[
-  [2]
-]
-])); // 156
-
-console.log(deepSum([])); // No number
+// TEST CASES
+console.log(countProfit([{name: 'Windi', product: 'Sepatu Stacattu', amount: 2}, {name: 'Vanessa', product: 'Sepatu Stacattu', amount: 3}, {name: 'Rani', product: 'Sweater Uniklooh', amount: 2}]));
+//[ { product: 'Sepatu Stacattu',
+//   shoppers: [ 'Windi', 'Vanessa' ],
+//   leftOver: 5,
+//   totalProfit: 7500000 },
+// { product: 'Baju Zoro',
+//   shoppers: [],
+//   leftOver: 2,
+//   totalProfit: 0 },
+// { product: 'Sweater Uniklooh',
+//   shoppers: [],
+//   leftOver: 1,
+//   totalProfit: 0 } ]
+console.log(countProfit([{name: 'Windi', product: 'Sepatu Stacattu', amount: 8}, {name: 'Vanessa', product: 'Sepatu Stacattu', amount: 10}, {name: 'Rani', product: 'Sweater Uniklooh', amount: 1}, {name: 'Devi', product: 'Baju Zoro', amount: 1}, {name: 'Lisa', product: 'Baju Zoro', amount: 1}]));
+// [ { product: 'Sepatu Stacattu',
+//     shoppers: [ 'Windi' ],
+//     leftOver: 2,
+//     totalProfit: 12000000 },
+//   { product: 'Baju Zoro',
+//     shoppers: [ 'Devi', 'Lisa' ],
+//     leftOver: 0,
+//     totalProfit: 1000000 },
+//   { product: 'Sweater Uniklooh',
+//     shoppers: [ 'Rani' ],
+//     leftOver: 0,
+//     totalProfit: 175000 } ]
+console.log(countProfit([{name: 'Windi', product: 'Sepatu Naiki', amount: 5}]));
+// [ { product: 'Sepatu Stacattu',
+//     shoppers: [],
+//     leftOver: 10,
+//     totalProfit: 0 },
+//   { product: 'Baju Zoro',
+//     shoppers: [],
+//     leftOver: 2,
+//     totalProfit: 0 },
+//   { product: 'Sweater Uniklooh',
+//     shoppers: [],
+//     leftOver: 1,
+//     totalProfit: 0 } ]
+console.log(countProfit([])); //[]

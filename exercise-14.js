@@ -1,90 +1,33 @@
 
-function highestScore (students) {
-  // Code disini
-  var allObj = {}
-  var compare;
-  for(let i = 0; i < students.length; i++){
-      compare = 0
-      for(let j = 0; j < students.length; j++){
-      if(students[i].class === students[j].class && students[j].score > compare){
-
-          compare = students[j].score
-
-          var obj = {}
-          obj.Name = students[j].name
-          obj.Score = students[j].score
-
-          allObj[students[i].class] = obj
-      }
-      }
-      
+function naikAngkot(arrPenumpang) {
+    var rute = ['A', 'B', 'C', 'D', 'E', 'F'];
+    //your code here
+    var result = []
+    for(let i = 0; i < arrPenumpang.length; i++){
+        var obj = {}
+        obj.penumpang  = arrPenumpang[i][0],
+        obj.naikDari = arrPenumpang[i][1],
+        obj.tujuan = arrPenumpang[i][2],
+        obj.bayar 
+        for(var j = 0; j < rute.length; j++){ 
+            if(arrPenumpang[i][1] === rute[j]){
+                var keberangkatan = rute.indexOf(rute[j])
+            }
+            if(arrPenumpang[i][2] === rute[j]){
+                var tujuan2 = rute.indexOf(rute[j])
+            }
+        }
+        obj.bayar = (tujuan2 - keberangkatan) * 2000
+        result.push(obj)
+    }
+    return result
+  
   }
-  return allObj
-}
-
-// TEST CASE
-console.log(highestScore([
-  {
-      name: 'Dimitri',
-      score: 90,
-      class: 'foxes'
-  },
-  {
-      name: 'Alexei',
-      score: 85,
-      class: 'wolves'
-  },
-  {
-      name: 'Sergei',
-      score: 74,
-      class: 'foxes'
-  },
-  {
-      name: 'Anastasia',
-      score: 78,
-      class: 'wolves'
-  }
-]));
-
-// {
-//   foxes: { name: 'Dimitri', score: 90 },
-//   wolves: { name: 'Alexei', score: 85 }
-// }
-
-
-console.log(highestScore([
-  {
-      name: 'Alexander',
-      score: 100,
-      class: 'foxes'
-  },
-  {
-      name: 'Alisa',
-      score: 76,
-      class: 'wolves'
-  },
-  {
-      name: 'Vladimir',
-      score: 92,
-      class: 'foxes'
-  },
-  {
-      name: 'Albert',
-      score: 71,
-      class: 'wolves'
-  },
-  {
-      name: 'Viktor',
-      score: 80,
-      class: 'tigers'
-  }
-]));
-
-// {
-//   foxes: { name: 'Alexander', score: 100 },
-//   wolves: { name: 'Alisa', score: 76 },
-//   tigers: { name: 'Viktor', score: 80 }
-// }
-
-
-console.log(highestScore([])); //{}
+  
+  //TEST CASE
+  console.log(naikAngkot([['Dimitri', 'B', 'F'], ['Icha', 'A', 'B']]));
+  // [ { penumpang: 'Dimitri', naikDari: 'B', tujuan: 'F', bayar: 8000 },
+  //   { penumpang: 'Icha', naikDari: 'A', tujuan: 'B', bayar: 2000 } ]
+  
+  console.log(naikAngkot([])); //[]
+  
